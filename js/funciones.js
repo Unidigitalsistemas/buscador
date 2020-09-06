@@ -10,11 +10,11 @@ let buscar = ()=>{
     .then((respuesta)=>respuesta.json())
     .then((datos)=>{
         if(entrada.length != 0){
-            let resultado = datos.filter(function(elemento){
+            let resultado = datos.find(function(elemento){
                 return elemento.nombre.toLowerCase().startsWith(entrada.toLowerCase()) || elemento.apellido.toLowerCase().startsWith(entrada.toLowerCase()) ;
             });
     
-            if(resultado.length == 0){
+            if(resultado == undefined){
                 tabla.innerHTML = '';
                 tabla.innerHTML = 
                 `
@@ -32,7 +32,6 @@ let buscar = ()=>{
                 `
                 <thead>
                       <tr>
-                        <th scope="col">#</th>
                         <th scope="col">Nombre</th>
                         <th scope="col">Apellido</th>
                         <th scope="col">Edad</th>
@@ -42,21 +41,16 @@ let buscar = ()=>{
                 `;
                 let cuerpoTabla = document.createElement('tbody');
                     tabla.append(cuerpoTabla);
-
-                resultado.forEach((elemento, indice)=>{
                     cuerpoTabla.innerHTML += 
                     `
                       <tr>
-                        <th scope="row">${indice}</th>
-                        <td>${elemento.nombre}</td>
-                        <td>${elemento.apellido}</td>
-                        <td>${elemento.edad}</td>
-                        <td>${elemento.profesion}</td>
+                        <td>${resultado.nombre}</td>
+                        <td>${resultado.apellido}</td>
+                        <td>${resultado.edad}</td>
+                        <td>${resultado.profesion}</td>
                       </tr>
                     `;
             
-                    //console.log(elemento);
-                });
             };
         }else{
             tabla.innerHTML = '';
